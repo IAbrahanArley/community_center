@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/centros")
 @RequiredArgsConstructor
-public class CentroComunitarioController {
+public class CentroComunitarioController implements CentroComunitarioApi {
 
     private final CentroComunitarioService service;
 
