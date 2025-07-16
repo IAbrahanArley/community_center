@@ -2,23 +2,30 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo
+    image: mongo:7.0
     container_name: mongo
+    restart: always
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 1234567
     volumes:
       - mongo-data:/data/db
-
-  app:
+    networks:
+      - paystore-network
+  api:
     build: .
-    container_name: community-center-api
+    container_name: paystore-api
     ports:
       - "8080:8080"
     depends_on:
       - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/paystore_db
+    networks:
+      - paystore-network
 
 volumes:
   mongo-data:
+
+networks:
+  paystore-network:
+    driver: bridge
