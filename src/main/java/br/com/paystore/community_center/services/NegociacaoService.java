@@ -2,6 +2,7 @@ package br.com.paystore.community_center.services;
 
 
 import br.com.paystore.community_center.dto.*;
+import br.com.paystore.community_center.exceptions.BusinessException;
 import br.com.paystore.community_center.model.*;
 import br.com.paystore.community_center.repositories.*;
 import br.com.paystore.community_center.util.CentroMapper;
@@ -22,9 +23,9 @@ public class NegociacaoService {
 
     public NegociacaoResponseDTO negociar(NegociacaoRequestDTO dto) {
         CentroComunitario origem = centroRepository.findById(dto.getCentroOrigemId())
-                .orElseThrow(() -> new RuntimeException("Centro origem não encontrado"));
+                .orElseThrow(() -> new BusinessException("Centro origem não encontrado"));
         CentroComunitario destino = centroRepository.findById(dto.getCentroDestinoId())
-                .orElseThrow(() -> new RuntimeException("Centro destino não encontrado"));
+                .orElseThrow(() -> new BusinessException("Centro destino não encontrado"));
 
         Recursos recursosOferecidos = mapper.paraEntidade(dto.getRecursosOferecidos());
         Recursos recursosRecebidos = mapper.paraEntidade(dto.getRecursosRecebidos());
@@ -36,10 +37,9 @@ public class NegociacaoService {
         boolean destinoComAltaOcupacao = destino.getOcupacaoAtual() >= (destino.getCapacidadeMaxima() * 0.9);
 
         if (!origemComAltaOcupacao && !destinoComAltaOcupacao && pontosOrigem != pontosDestino) {
-            throw new RuntimeException("Negociação inválida: pontos diferentes e nenhum centro com alta ocupação.");
+            throw new BusinessException("Negociação inválida: pontos diferentes e nenhum centro com alta ocupação.");
         }
 
-        // Atualiza recursos de ambos os centros
         origem.setRecursos(subtrairRecursos(origem.getRecursos(), recursosOferecidos));
         origem.setRecursos(somarRecursos(origem.getRecursos(), recursosRecebidos));
         destino.setRecursos(subtrairRecursos(destino.getRecursos(), recursosRecebidos));
@@ -62,7 +62,7 @@ public class NegociacaoService {
 
     public List<NegociacaoResponseDTO> listarPorCentroEData(String centroId, LocalDateTime inicio) {
         List<Negociacao> negociacoes = negociacaoRepository
-                .findByCentroOrigemIdOrCentroDestinoIdAndDataHoraBetween(
+                .findByCentroOrigemIdOrCentroDestinoIdEDataHora(
                         centroId, centroId, inicio, LocalDateTime.now()
                 );
 

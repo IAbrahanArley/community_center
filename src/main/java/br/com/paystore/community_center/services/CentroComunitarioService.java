@@ -2,6 +2,7 @@ package br.com.paystore.community_center.services;
 
 import br.com.paystore.community_center.dto.CentroComunitarioRequestDTO;
 import br.com.paystore.community_center.dto.CentroComunitarioResponseDTO;
+import br.com.paystore.community_center.exceptions.BusinessException;
 import br.com.paystore.community_center.model.CentroComunitario;
 import br.com.paystore.community_center.repositories.CentroComunitarioRepository;
 import br.com.paystore.community_center.util.CentroMapper;
@@ -36,12 +37,12 @@ public class CentroComunitarioService {
     public CentroComunitarioResponseDTO buscarPorId(String id) {
         return repository.findById(id)
                 .map(mapper::paraResposta)
-                .orElseThrow(() -> new RuntimeException("Centro não encontrado"));
+                .orElseThrow(() -> new BusinessException("Centro não encontrado"));
     }
 
     public CentroComunitarioResponseDTO atualizar(String id, CentroComunitarioRequestDTO dto) {
         CentroComunitario existente = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Centro não encontrado"));
+                .orElseThrow(() -> new BusinessException("Centro não encontrado"));
 
         CentroComunitario atualizado = CentroComunitario.builder()
                 .id(existente.getId())
@@ -60,14 +61,14 @@ public class CentroComunitarioService {
 
     public void deletar(String id) {
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Centro não encontrado");
+            throw new BusinessException("Centro não encontrado");
         }
         repository.deleteById(id);
     }
 
     public void atualizarOcupacao(String id, int novaOcupacao) {
         CentroComunitario centro = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Centro não encontrado"));
+                .orElseThrow(() -> new BusinessException("Centro não encontrado"));
 
         centro.setOcupacaoAtual(novaOcupacao);
         centro.setAtualizadoEm(LocalDateTime.now());
