@@ -54,7 +54,7 @@ public class NegociacaoService {
                 .recursosEnviados(recursosOferecidos)
                 .recursosRecebidos(recursosRecebidos)
                 .regraFlexibilizada(origemComAltaOcupacao || destinoComAltaOcupacao)
-                .data(LocalDateTime.now())
+                .dataHora(LocalDateTime.now())
                 .build();
 
         return mapper.paraRespostaNegociacao(negociacaoRepository.save(negociacao));
@@ -62,7 +62,7 @@ public class NegociacaoService {
 
     public List<NegociacaoResponseDTO> listarPorCentroEData(String centroId, LocalDateTime inicio) {
         List<Negociacao> negociacoes = negociacaoRepository
-                .findByCentroOrigemIdOrCentroDestinoIdEDataHora(
+                .findByCentroOrigemIdOrCentroDestinoIdAndDataHoraBetween(
                         centroId, centroId, inicio, LocalDateTime.now()
                 );
 

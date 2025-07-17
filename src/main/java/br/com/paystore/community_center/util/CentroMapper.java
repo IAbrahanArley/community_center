@@ -71,7 +71,7 @@ public class CentroMapper {
                 .recursosOferecidos(paraDTO(negociacao.getRecursosEnviados()))
                 .recursosRecebidos(paraDTO(negociacao.getRecursosRecebidos()))
                 .regraFlexibilizada(negociacao.getRegraFlexibilizada())
-                .dataHora(negociacao.getData())
+                .dataHora(negociacao.getDataHora())
                 .build();
     }
 

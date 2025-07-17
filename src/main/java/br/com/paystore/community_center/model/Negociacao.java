@@ -22,7 +22,7 @@ public class Negociacao {
     private Recursos recursosEnviados;
     private Recursos recursosRecebidos;
 
-    private LocalDateTime data;
+    private LocalDateTime dataHora;
 
     private Boolean regraFlexibilizada;
 }

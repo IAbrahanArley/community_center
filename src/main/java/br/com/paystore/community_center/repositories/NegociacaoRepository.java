@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface NegociacaoRepository extends MongoRepository<Negociacao, String> {
-    List<Negociacao> findByCentroOrigemIdOrCentroDestinoIdEDataHora(
+    List<Negociacao> findByCentroOrigemIdOrCentroDestinoIdAndDataHoraBetween(
             String origemId,
             String destinoId,
             LocalDateTime inicio,
