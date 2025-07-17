@@ -3,9 +3,11 @@ package br.com.paystore.community_center.controllers;
 import br.com.paystore.community_center.dto.CentroComunitarioRequestDTO;
 import br.com.paystore.community_center.dto.CentroComunitarioResponseDTO;
 import br.com.paystore.community_center.services.CentroComunitarioService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class CentroComunitarioController implements CentroComunitarioApi {
 
 
     @PostMapping
-    public ResponseEntity<CentroComunitarioResponseDTO> criarCentro(
-            @RequestBody CentroComunitarioRequestDTO dto) {
+    public ResponseEntity<CentroComunitarioResponseDTO> criarCentro(@Validated
+            @RequestBody  CentroComunitarioRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.criarCentro(dto));
     }
 

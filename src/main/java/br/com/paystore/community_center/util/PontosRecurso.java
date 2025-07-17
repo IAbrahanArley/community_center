@@ -11,10 +11,15 @@ public class PontosRecurso {
     public static final int CESTA_BASICA = 2;
 
     public static int calcularTotalPontos(Recursos recursos) {
-        return recursos.getMedicos() * MEDICO
-                + recursos.getVoluntarios() * VOLUNTARIO
-                + recursos.getKitsMedicos() * KIT_MEDICO
-                + recursos.getVeiculosTransporte() * VEICULO
-                + recursos.getCestasBasicas() * CESTA_BASICA;
+        if (recursos == null) return 0;
+
+        return nullSafe(recursos.getMedicos()) * MEDICO
+                + nullSafe(recursos.getVoluntarios()) * VOLUNTARIO
+                + nullSafe(recursos.getKitsMedicos()) * KIT_MEDICO
+                + nullSafe(recursos.getVeiculosTransporte()) * VEICULO
+                + nullSafe(recursos.getCestasBasicas()) * CESTA_BASICA;
+    }
+    private static int nullSafe(Integer valor) {
+        return valor != null ? valor : 0;
     }
 }
