@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/relatorios")
 @RequiredArgsConstructor
-public class RelatorioController {
+public class RelatorioController implements RelatorioApi {
 
     private final RelatorioService relatorioService;
 
