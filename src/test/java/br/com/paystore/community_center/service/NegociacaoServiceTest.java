@@ -36,7 +36,7 @@ public class NegociacaoServiceTest {
         service = new NegociacaoService(centroRepository, negociacaoRepository, mapper);
     }
     @Test
-    void deveNegociarComSucesso_quandoCentrosValidosERegrasAtendidas() {
+    void deveNegociarComSucessoQuandoCentrosValidosERegrasAtendidas() {
 
         String idOrigem = "centro1";
         String idDestino = "centro2";
@@ -141,7 +141,7 @@ public class NegociacaoServiceTest {
 
 
     @Test
-    void deveLancarExcecao_quandoCentrosNaoEncontrados() {
+    void deveLancarExcecaoQuandoCentrosNaoEncontrados() {
         NegociacaoRequestDTO dto = NegociacaoRequestDTO.builder()
                 .centroOrigemId("centro1")
                 .centroDestinoId("centro2")
@@ -153,7 +153,7 @@ public class NegociacaoServiceTest {
     }
 
     @Test
-    void deveLancarExcecao_quandoPontosDiferentesSemAltaOcupacao() {
+    void deveLancarExcecaoQuandoPontosDiferentesSemAltaOcupacao() {
         String idOrigem = "centro1";
         String idDestino = "centro2";
 
