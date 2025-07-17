@@ -2,8 +2,10 @@ package br.com.paystore.community_center.util;
 
 import br.com.paystore.community_center.dto.CentroComunitarioRequestDTO;
 import br.com.paystore.community_center.dto.CentroComunitarioResponseDTO;
+import br.com.paystore.community_center.dto.NegociacaoResponseDTO;
 import br.com.paystore.community_center.dto.RecursosDTO;
 import br.com.paystore.community_center.model.CentroComunitario;
+import br.com.paystore.community_center.model.Negociacao;
 import br.com.paystore.community_center.model.Recursos;
 import org.springframework.stereotype.Component;
 
@@ -60,4 +62,17 @@ public class CentroMapper {
                 .cestasBasicas(recursos.getCestasBasicas())
                 .build();
     }
+
+    public NegociacaoResponseDTO paraRespostaNegociacao(Negociacao negociacao) {
+        return NegociacaoResponseDTO.builder()
+                .id(negociacao.getId())
+                .centroOrigemId(negociacao.getCentroOrigemId())
+                .centroDestinoId(negociacao.getCentroDestinoId())
+                .recursosOferecidos(paraDTO(negociacao.getRecursosEnviados()))
+                .recursosRecebidos(paraDTO(negociacao.getRecursosRecebidos()))
+                .regraFlexibilizada(negociacao.getRegraFlexibilizada())
+                .dataHora(negociacao.getData())
+                .build();
+    }
+
 }
