@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/negociacoes")
 @RequiredArgsConstructor
-public class NegociacaoController {
+public class NegociacaoController implements NegociacaoApi{
 
     private final NegociacaoService service;
 
